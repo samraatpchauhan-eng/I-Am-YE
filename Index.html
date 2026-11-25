@@ -21,15 +21,31 @@
             animation: drop-in 1000ms;
         }
 
+        h2 {
+            font-size: 3em;
+        }
+
         @keyframes drop-in {
             from {
                 opacity: 0;
-                transform: translateY(-1em);
+                transform: translateY(-2em);
             }
 
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes drop-in-from-left {
+            from {
+                opacity: 0;
+                transform: translateX(-5em);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
             }
         }
 
@@ -40,9 +56,9 @@
         .info-card {
             background: rgba(0, 0, 0, 0.479);
             border: 2px solid #ffd3a0;
-            padding: 15px 25px;
-            border-radius: 8px;
-            min-width: 300px;
+            padding: 20px 90px;
+            border-radius: 18px;
+            width: fit-content;
         }
 
     </style>
@@ -51,5 +67,12 @@
     <h1 id="title">I AM YE.</h1>
     <div style="text-align: center; animation: drop-in 1000ms;">
         <img src="assets/pngegg.png" alt="Ye Ye Boi">
+    </div>
+
+    <div id="Quotes" class="info-card" style="margin-top: -50vh; margin-left: 4vw; animation: drop-in-from-left 1000ms;">
+        <h2 style="text-align: center;">Click Here for Quotes</h2>
+        <div style="text-align: center;">
+            <img src="assets/KW1.png" alt="Ye Ye Boi">
+        </div>
     </div>
 </body>
