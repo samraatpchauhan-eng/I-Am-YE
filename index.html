@@ -58,11 +58,23 @@
             }
         }
 
+        @keyframes drop-in-from-right {
+            from {
+                opacity: 0;
+                transform: translateX(5em);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
         #title {
             padding: 10px;
         }
 
-        .info-card {
+        .info-card-quote {
             background: rgba(0, 0, 0, 0.479);
             border: 2px solid #ffd3a0;
             padding: 20px 90px;
@@ -72,47 +84,74 @@
             word-wrap: break-word;
         }
 
+        .info-card-album {
+            background: rgba(0, 0, 0, 0.479);
+            border: 2px solid #ffd3a0;
+            padding: 20px 90px;
+            border-radius: 18px;
+            width: fit-content;
+            max-width: 25vw;
+        }
+
     </style>
 </head>
 
 <body>
     <h1 id="title">I AM YE.</h1>
+
     <div style="text-align: center; animation: drop-in 1000ms;">
         <img src="assets/pngegg.png" alt="Ye Ye Boi">
     </div>
 
-    <div id="Quotes" class="info-card" style="margin-top: -50vh; margin-left: 4vw; animation: drop-in-from-left 1000ms;">
+    <div id="Quotes" class="info-card-quote" style="margin-top: -50vh; margin-left: 4vw; animation: drop-in-from-left 1000ms;">
         <h2 style="text-align: center;">
             <button id="quoteButton" type="button">Ye's Quote Button</button>
         </h2>
-        <p id="quoteDisplay" style="text-align: center; font-size: 2em; font-family: Helvetica, sans-serif;">What quote shall Ye bless us with?</p>
+        <p id="quoteDisplay" style="text-align: center; font-size: 2em; font-family: Helvetica, sans-serif;">Time to get Kanye Blessed</p>
         
         <div style="text-align: center;">
             <img src="assets/KW1.png" alt="Ye Ye Boi">
         </div>
     </div>
+
+    <div id="NextAlbum" class="info-card-album" style="margin-top: -50vh; margin-left: 65vw; animation: drop-in-from-right 1000ms;">
+        <h2 style="text-align: center;">Your Next Kanye Album: </h2>
+    </div>
 </body>
 
 <script>
     const quoteButton = document.querySelector("#quoteButton");
+    const quoteDisplay = document.querySelector("#quoteDisplay");
 
     quoteButton.addEventListener("click", async () => {
         quoteButton.disabled = true;
         quoteButton.textContent = "Loading....";
 
         try {
-            const response = await fetch ("https://api.kanye.rest/");
-            if(!response.ok) {
-                throw new Error(`Request Failed: ${response.status}`);
+            let singleWordQuote = null;
+            while (!singleWordQuote) {
+                const response = await fetch("https://api.kanye.rest/");
+                if (!response.ok) {
+                    throw new Error(`Request Failed: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                const words = data.quote.trim().split(/\s+/);
+                
+                if (words.length <= 7) {
+                    singleWordQuote = data.quote;
+                }
             }
 
-            const data = await response.json();
-            quoteButton.textContent = data.quote;
+            quoteDisplay.textContent = `"${singleWordQuote}"`;
+
         } catch (error) {
             console.error("Couldn't load a quote: ", error);
-            quoteButton.textContent = "Couldn't load a quote. Click here to try again";
+            quoteDisplay.textContent = "Couldn't load a quote. Click here to try again";
         } finally {
             quoteButton.disabled = false;
+            quoteButton.textContent = "Ye's Quote Button";
         }
     });
 </script>
