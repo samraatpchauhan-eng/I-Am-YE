@@ -17,8 +17,8 @@
         h1 {
             text-align: center;
             margin: 10px 0;
-            font-size: 4em;
-            animation: drop-in 900ms;
+            font-size: 6em;
+            animation: drop-in 1000ms;
         }
 
         @keyframes drop-in {
@@ -33,8 +33,23 @@
             }
         }
 
+        #title {
+            padding: 10px;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 0, 0.479);
+            border: 2px solid #ffd3a0;
+            padding: 15px 25px;
+            border-radius: 8px;
+            min-width: 300px;
+        }
+
     </style>
 </head>
 <body>
-    <h1>I AM YE.</h1>
+    <h1 id="title">I AM YE.</h1>
+    <div style="text-align: center; animation: drop-in 1000ms;">
+        <img src="assets/pngegg.png" alt="Ye Ye Boi">
+    </div>
 </body>
