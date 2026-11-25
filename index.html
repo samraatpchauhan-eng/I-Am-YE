@@ -157,5 +157,56 @@
             quoteButton.disabled = false;
             quoteButton.textContent = "Ye's Quote Button";
         }
+});
+    window.addEventListener("DOMContentLoaded", async () => {
+        const albumDisplay = document.querySelector("#album-display");
+        
+        const kanyeAlbums = [
+            {
+                title: "The COllege Dropout (2004)",
+                art: "https://upload.wikimedia.org/wikipedia/en/a/a3/Kanye_West_-_The_College_Dropout.jpg" 
+            },
+            {
+                title: "Late Registration (2005)",
+                art: "https://upload.wikimedia.org/wikipedia/en/f/f4/Late_Registration_by_Kanye_West.jpg"
+            },
+            {
+                title: "Graduation (2007)",
+                art: "https://upload.wikimedia.org/wikipedia/en/7/70/Graduation_album_cover.jpg"
+            },
+            {
+                title: "808s & Heartbreak (2008)",
+                art: "https://upload.wikimedia.org/wikipedia/en/f/f1/808s_%26_Heartbreak.png"
+            },
+            {
+                title: "My Beautiful Dark Twisted Fantasy (2010)",
+                art: "https://upload.wikimedia.org/wikipedia/en/b/be/MBDTF_ALT.jpg"
+            },
+            {
+                title: "Yeezus (2013)",
+                art: "https://upload.wikimedia.org/wikipedia/en/0/03/Yeezus_album_cover.png"
+            },
+            {
+                title: "The Life of Pablo (2016)",
+                art: "https://upload.wikimedia.org/wikipedia/en/4/4d/The_life_of_pablo.jpg"
+            },
+            {
+                title: "ye (2018)",
+                art: "https://upload.wikimedia.org/wikipedia/en/7/74/Ye_album_cover.jpg"
+            }
+        ];
+
+        try {
+            const randomIndex = Math.floor(Math.random() * kanyeAlbums.length);
+            const randomAlbum = kanyeAlbums[randomIndex];
+
+            albumDisplay.innerHTML = `
+                <img src="${randomAlbum.art}" alt="${randomAlbum.title}" style="width: 550px; height: 550px; border-radius: 8px; border: 2px solid #ffd3a0; object-fit: cover;">
+                <p style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">${randomAlbum.title}</p>
+            `;
+        } catch (error) {
+            console.error("Couldn't load album: ", error);
+            albumDisplay.textContent = "Couldn't Load Album Art";
+        }
     });
 </script>
