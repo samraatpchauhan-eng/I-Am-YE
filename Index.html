@@ -23,6 +23,15 @@
 
         h2 {
             font-size: 3em;
+            font-weight: bold;
+        }
+
+        button {
+            font-size: 1em;
+            background: rgba(0, 0, 0, 0);
+            border: rgba(0, 0, 0, 0);
+            color: #ffd3a0;
+            font-family: Helvetica, sans-serif;
         }
 
         @keyframes drop-in {
@@ -59,10 +68,13 @@
             padding: 20px 90px;
             border-radius: 18px;
             width: fit-content;
+            max-width: 25vw;
+            word-wrap: break-word;
         }
 
     </style>
 </head>
+
 <body>
     <h1 id="title">I AM YE.</h1>
     <div style="text-align: center; animation: drop-in 1000ms;">
@@ -70,9 +82,37 @@
     </div>
 
     <div id="Quotes" class="info-card" style="margin-top: -50vh; margin-left: 4vw; animation: drop-in-from-left 1000ms;">
-        <h2 style="text-align: center;">Click Here for Quotes</h2>
+        <h2 style="text-align: center;">
+            <button id="quoteButton" type="button">Ye's Quote Button</button>
+        </h2>
+        <p id="quoteDisplay" style="text-align: center; font-size: 2em; font-family: Helvetica, sans-serif;">What quote shall Ye bless us with?</p>
+        
         <div style="text-align: center;">
             <img src="assets/KW1.png" alt="Ye Ye Boi">
         </div>
     </div>
 </body>
+
+<script>
+    const quoteButton = document.querySelector("#quoteButton");
+
+    quoteButton.addEventListener("click", async () => {
+        quoteButton.disabled = true;
+        quoteButton.textContent = "Loading....";
+
+        try {
+            const response = await fetch ("https://api.kanye.rest/");
+            if(!response.ok) {
+                throw new Error(`Request Failed: ${response.status}`);
+            }
+
+            const data = await response.json();
+            quoteButton.textContent = data.quote;
+        } catch (error) {
+            console.error("Couldn't load a quote: ", error);
+            quoteButton.textContent = "Couldn't load a quote. Click here to try again";
+        } finally {
+            quoteButton.disabled = false;
+        }
+    });
+</script>
